@@ -1,0 +1,104 @@
+* {
+    box-sizing: border-box;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.page-title {
+    font-size: 33px;
+    margin: 0;
+}
+
+.text-area__input {
+    width: 850px;
+    height: 200px;
+    border-radius: 5px;
+    font-size: 18px;
+    padding: 10px;
+}
+
+.keyboard {
+    width: 856px;
+    height: 310px;
+    background: linear-gradient(180deg, #C4C4C4 0%, #727272 100%);
+    border-radius: 30px;
+    padding: 20px;
+    color: #fff;
+}
+
+.keyboard__row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.key {
+    width: 50px;
+    height: 50px;
+    background-color: #131313;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.key:hover {
+    background-color: darksalmon;
+}
+
+.key_size-l {
+    width: 104px;
+}
+
+.key_size-m {
+    width: 60px;
+}
+
+.key_space {
+    width: 380px;
+}
+
+.key_light {
+    background-color: #474747;
+}
+
+.arrow_down {
+    transform: rotate(180deg);
+}
+
+.arrow_left {
+    transform: rotate(270deg);
+}
+
+.arrow_right {
+    transform: rotate(90deg);
+}
+
+.key-press-animation {
+    animation: keyPress 0.3s;
+}
+
+@keyframes keyPress {
+    0% {
+        box-shadow: none;
+    }
+    50% {
+        box-shadow: 0px 0px 10px 5px #fff;
+    }
+    100% {
+        box-shadow: none;
+    }
+}
+
+.comments {
+    text-align: center;
+}
