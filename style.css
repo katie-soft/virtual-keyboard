@@ -17,7 +17,7 @@
     margin: 0;
 }
 
-.text-area__input {
+.input {
     width: 850px;
     height: 200px;
     border-radius: 5px;
@@ -63,11 +63,11 @@
     width: 60px;
 }
 
-.key_space {
+.key_size-xl {
     width: 380px;
 }
 
-.key_light {
+.key_color-light {
     background-color: #474747;
 }
 
@@ -100,5 +100,9 @@
 }
 
 .comments {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }
