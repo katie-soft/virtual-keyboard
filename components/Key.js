@@ -1,3 +1,5 @@
+import { currentLang } from '../constants.js'
+
 export default class Key {
   constructor({
     value,
@@ -6,7 +8,8 @@ export default class Key {
     shiftOnRU,
     size,
     row,
-    color
+    color,
+    showShift
   }) {
     this.value = value;
     this.shiftOn = shiftOn;
@@ -15,6 +18,7 @@ export default class Key {
     this.size = size;
     this.row = row;
     this.color = color;
+    this.showShift = showShift;
   }
 
   createKey() {
@@ -26,7 +30,14 @@ export default class Key {
     if (this.color) {
       newKey.classList.add(`key_color-${this.color}`);
     }
-    newKey.textContent = this.value;
+    if (this.showShift === true) {
+      newKey.setAttribute('data-content', this.shiftOn);
+    }
+    if (currentLang.language === 'RU' && this.valueRU) {
+      newKey.textContent = this.valueRU;
+    } else {
+      newKey.textContent = this.value;
+    }
     return newKey;
   }
 

@@ -1,3 +1,7 @@
+import Language from './components/Lanuage.js';
+
+export let currentLang = new Language();
+
 const pageElements = [
   {tag: 'main', className: 'main', id: "main", parent: 'body'},
   {tag: 'h1', className: 'page-title', id: "page-title", parent: '#main'},
@@ -15,8 +19,8 @@ const pageElements = [
 ]
 
 const textContent = {
-  '#page-title': 'RSS Virtual Keyboard',
-  '#text-1': 'Virtual Keyboard for Windows OS',
+  '#page-title': 'RSS Virtual Keyboard for Windows OS',
+  '#text-1': `Current language: ${currentLang.language}`,
   '#text-2': 'To switch between EN <-> RU press Shift+Alt',
 };
 
@@ -29,6 +33,7 @@ const keys = {
     capsOnRU: 'Ё',
     row: 1,
     size: 's',
+    showShift: true,
   },
   1: {
     position: 1,
@@ -36,6 +41,7 @@ const keys = {
     shiftOn: '!',
     row: 1,
     size: 's',
+    showShift: true,
   },
   2: {
     position: 2,
@@ -44,6 +50,7 @@ const keys = {
     shiftOnRU: '"',
     row: 1,
     size: 's',
+    showShift: true,
   },
   3: {
     position: 3,
@@ -52,6 +59,7 @@ const keys = {
     shiftOnRU: '№',
     row: 1,
     size: 's',
+    showShift: true,
   },
   4: {
     position: 4,
@@ -60,6 +68,7 @@ const keys = {
     shiftOnRU: ';',
     row: 1,
     size: 's',
+    showShift: true,
   },
   5: {
     position: 5,
@@ -67,6 +76,7 @@ const keys = {
     shiftOn: '%',
     row: 1,
     size: 's',
+    showShift: true,
   },
   6: {
     position: 6,
@@ -75,6 +85,7 @@ const keys = {
     shiftOnRU: ':',
     row: 1,
     size: 's',
+    showShift: true,
   },
   7: {
     position: 7,
@@ -83,6 +94,7 @@ const keys = {
     shiftOnRU: '?',
     row: 1,
     size: 's',
+    showShift: true,
   },
   8: {
     position: 8,
@@ -90,6 +102,7 @@ const keys = {
     shiftOn: '*',
     row: 1,
     size: 's',
+    showShift: true,
   },
   9: {
     position: 9,
@@ -97,6 +110,7 @@ const keys = {
     shiftOn: '(',
     row: 1,
     size: 's',
+    showShift: true,
   },
   0: {
     position: 10,
@@ -104,6 +118,7 @@ const keys = {
     shiftOn: ')',
     row: 1,
     size: 's',
+    showShift: true,
   },
   minus: {
     position: 11,
@@ -111,6 +126,7 @@ const keys = {
     shiftOn: '_',
     row: 1,
     size: 's',
+    showShift: true,
   },
   equals: {
     position: 12,
@@ -118,10 +134,11 @@ const keys = {
     shiftOn: '+',
     row: 1,
     size: 's',
+    showShift: true,
   },
   backspace: {
     position: 13,
-    value: 'bksp',
+    value: 'backspace',
     shiftOn: '',
     row: 1,
     size: 'l',
@@ -230,6 +247,7 @@ const keys = {
     capsOnRU: 'Х',
     row: 2,
     size: 's',
+    showShift: true,
   },
   brace_close: {
     position: 12,
@@ -239,14 +257,16 @@ const keys = {
     capsOnRU: 'Ъ',
     row: 2,
     size: 's',
+    showShift: true,
   },
   slash: {
     position: 13,
-    value: "|",
+    value: "∖",
     shiftOn: '|',
     shiftOnRU: '/',
     row: 2,
     size: 's',
+    showShift: true,
   },
   del: {
     position: 14,
@@ -349,15 +369,17 @@ const keys = {
     capsOnRU: 'Ж',
     row: 3,
     size: 's',
+    showShift: true,
   },
   apostrophe: {
     position: 11,
     value: "'",
-    shiftOn: ':',
+    shiftOn: '"',
     valueRU: 'э',
     capsOnRU: 'Э',
     row: 3,
     size: 's',
+    showShift: true,
   },
   enter: {
     position: 12,
@@ -442,6 +464,7 @@ const keys = {
     capsOnRU: 'Б',
     row: 4,
     size: 's',
+    showShift: true,
   },
   fullstop: {
     position: 9,
@@ -451,6 +474,7 @@ const keys = {
     capsOnRU: 'Ю',
     row: 4,
     size: 's',
+    showShift: true,
   },
   question: {
     position: 10,
@@ -460,6 +484,7 @@ const keys = {
     capsOnRU: ',',
     row: 4,
     size: 's',
+    showShift: true,
   },
   arrow_up: {
     position: 11,
@@ -480,17 +505,18 @@ const keys = {
     row: 5,
     size: 's',
   },
-  win: {
-    position: 1,
-    value: 'win',
-    row: 5,
-    size: 's',
-  },
   alt_left: {
     position: 2,
     value: 'alt',
     row: 5,
     size: 's',
+  },
+  lang: {
+    position: -1,
+    value: `${currentLang.language}`,
+    row: 5,
+    size: 's',
+    color: 'light'
   },
   space: {
     position: 3,

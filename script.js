@@ -1,6 +1,11 @@
-import { pageElements, textContent, keys } from '../constants.js';
+import { pageElements, textContent, keys, currentLang } from '../constants.js';
+import Language from './components/Lanuage.js';
 import Layout from './components/Layout.js'; 
 import Key from './components/Key.js';
+
+//settings
+
+let capsLockIsOn = false;
 
 // create basic page layout
 for (let element of pageElements) {
@@ -15,22 +20,24 @@ Object.keys(textContent).forEach(key =>  {
 // create keys
 const keyboard = document.querySelector('#keyboard');
 const textarea = document.querySelector('#input');
+const keyboardRows = document.querySelectorAll('.keyboard__row');
 
 function sortByPosition(arr) {
   arr.sort((a, b) => a.position > b.position ? 1 : -1);
 }
 
-let arrValues = Object.values(keys);
-sortByPosition(arrValues);
+let startValues = Object.values(keys);
+sortByPosition(startValues);
 
 function drawKeys(arr) {
+  keyboardRows.forEach(el => el.innerHTML = '');
   for (let i = 0; i < arr.length; i++) {
     const key = new Key(arr[[i]]);
     key.appendKey();
   }
 }
 
-drawKeys(arrValues);
+drawKeys(startValues);
 
 //create keys effects
 keyboard.addEventListener('click', (event) => {
@@ -43,13 +50,19 @@ keyboard.addEventListener('click', (event) => {
         case '':
           virtualType(' ');
           break;
+        case 'tab':
+          virtualType(' ');
+          virtualType(' ');
+          virtualType(' ');
+          virtualType(' ');
+          break;
         case 'enter':
           virtualType('\n');
           break;
         case 'del':
           virtualDel();
           break;
-        case 'bksp':
+        case 'backspace':
           virtualBackspace();
           break;
         case 'capslock':
@@ -104,7 +117,11 @@ textarea.addEventListener('click', () => {
 })
 
 //CapsLock
-let capsLockIsOn = false;
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'CapsLock') {
+    handleCapsLock();
+  }
+})
 
 function handleCapsLock() {
   const capsLockKey = Array.from(document.querySelectorAll('.key')).find(el => el.textContent === 'capslock');
@@ -125,10 +142,10 @@ function keysToUpperCase() {
   const letterKeys = Array.from(document.querySelectorAll('.key'));
   const capsKey = 'capsOn';
   letterKeys.forEach(el => {
-    let obj = keys[el.innerText];
-    if (typeof obj === 'object' && capsKey in obj) {
+    //let obj = keys[el.innerText];
+    //if (typeof obj === 'object' && capsKey in obj) {
       el.innerText = el.innerText.toUpperCase();
-    }
+    //}
   })
 }
 
@@ -138,4 +155,12 @@ function keysToLowerCase() {
     el.innerText = el.innerText.toLowerCase();
   })
 }
+
+//change language
+const langKey = Array.from(document.querySelectorAll('.key')).find(el => el.textContent === currentLang.language);
+langKey.addEventListener('click', (event) => {
+  currentLang.change();
+  drawKeys(startValues);
+  document.querySelector("#text-1").innerText = textContent['#text-1'];
+});
 
