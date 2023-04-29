@@ -30,7 +30,7 @@ export default class Key {
     if (this.color) {
       newKey.classList.add(`key_color-${this.color}`);
     }
-    if (this.showShift === true) {
+    if (this.showShift) {
       newKey.setAttribute('data-content', this.shiftOn);
     }
     if (currentLang.language === 'RU' && this.valueRU) {

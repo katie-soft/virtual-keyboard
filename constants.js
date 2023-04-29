@@ -14,14 +14,17 @@ const pageElements = [
   {tag: 'div', className: 'keyboard__row', id: "row-3", parent: '#keyboard'},
   {tag: 'div', className: 'keyboard__row', id: "row-4", parent: '#keyboard'},
   {tag: 'div', className: 'keyboard__row', id: "row-5", parent: '#keyboard'},
-  {tag: 'span', className: 'comments__text', id: "text-1", parent: '#comments'},
+  {tag: 'div', className: 'comments__wrapper', id: "text", parent: '#comments'},
+  {tag: 'span', className: 'comments__text', id: "text-1", parent: '#text'},
+  {tag: 'span', className: 'comments__text', id: "lang", parent: '#text'},
   {tag: 'span', className: 'comments__text', id: "text-2", parent: '#comments'},
 ]
 
 const textContent = {
   '#page-title': 'RSS Virtual Keyboard for Windows OS',
-  '#text-1': `Current language: ${currentLang.language}`,
-  '#text-2': 'To switch between EN <-> RU press Shift+Alt',
+  '#text-1': 'Current language: ',
+  '#lang': `${currentLang.language}`,
+  '#text-2': 'To switch between EN <-> RU press left bottom button',
 };
 
 const keys = {

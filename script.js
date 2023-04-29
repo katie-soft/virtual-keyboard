@@ -4,7 +4,6 @@ import Layout from './components/Layout.js';
 import Key from './components/Key.js';
 
 //settings
-
 let capsLockIsOn = false;
 
 // create basic page layout
@@ -68,6 +67,8 @@ keyboard.addEventListener('click', (event) => {
         case 'capslock':
           handleCapsLock();
           break;
+        case currentLang.language:
+          changeKeyboardLang();
       }
     }
   }
@@ -76,7 +77,7 @@ keyboard.addEventListener('click', (event) => {
 function showKeyAnimation(element) {
   element.classList.add('key-press-animation');
   setTimeout(() => {
-    element.classList.remove('key-press-animation')}, 300)
+    element.classList.remove('key-press-animation')}, 300);
 }
 
 function showKey(event) {
@@ -86,7 +87,7 @@ function showKey(event) {
 document.addEventListener('keydown', showKey);
 
 function virtualType(element) {
-  let inputArr = textarea.value.split('')
+  let inputArr = textarea.value.split('');
   inputArr.splice(currentCursor, 0, element);
   textarea.value = inputArr.join('');
   //textarea.focus();
@@ -94,13 +95,13 @@ function virtualType(element) {
 }
 
 function virtualDel() {
-  let inputArr = textarea.value.split('')
+  let inputArr = textarea.value.split('');
   inputArr.splice(currentCursor, 1, '');
   textarea.value = inputArr.join('');
 }
 
 function virtualBackspace() {
-  let inputArr = textarea.value.split('')
+  let inputArr = textarea.value.split('');
   inputArr.splice(currentCursor - 1, 1, '');
   textarea.value = inputArr.join('');
   currentCursor = currentCursor - 1;
@@ -128,9 +129,7 @@ function handleCapsLock() {
   if (capsLockIsOn) {
     capsLockIsOn = false;
     capsLockKey.classList.remove('key_pressed');
-    keysToLowerCase()
-    //drawKeys(arrValues);
-
+    keysToLowerCase();
   } else {
     capsLockIsOn = true;
     capsLockKey.classList.add('key_pressed');
@@ -139,28 +138,25 @@ function handleCapsLock() {
 }
 
 function keysToUpperCase() {
-  const letterKeys = Array.from(document.querySelectorAll('.key'));
+  const letterKeys = Array.from(document.querySelectorAll('.key')).filter(el => el.textContent.length === 1);
   const capsKey = 'capsOn';
   letterKeys.forEach(el => {
-    //let obj = keys[el.innerText];
-    //if (typeof obj === 'object' && capsKey in obj) {
       el.innerText = el.innerText.toUpperCase();
-    //}
   })
 }
 
 function keysToLowerCase() {
-  const letterKeys = Array.from(document.querySelectorAll('.key'));
+  const letterKeys = Array.from(document.querySelectorAll('.key')).filter(el => el.textContent.length === 1);
   letterKeys.forEach(el => {
     el.innerText = el.innerText.toLowerCase();
   })
 }
 
 //change language
-const langKey = Array.from(document.querySelectorAll('.key')).find(el => el.textContent === currentLang.language);
-langKey.addEventListener('click', (event) => {
+function changeKeyboardLang() {
   currentLang.change();
+  keys.lang.value = currentLang.language;
+  document.querySelector('#lang').innerText = currentLang.language;
   drawKeys(startValues);
-  document.querySelector("#text-1").innerText = textContent['#text-1'];
-});
+}
 
