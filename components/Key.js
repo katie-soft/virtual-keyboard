@@ -9,7 +9,6 @@ export default class Key {
     size,
     row,
     color,
-    showShift
   }) {
     this.value = value;
     this.shiftOn = shiftOn;
@@ -18,7 +17,6 @@ export default class Key {
     this.size = size;
     this.row = row;
     this.color = color;
-    this.showShift = showShift;
   }
 
   createKey() {
@@ -30,8 +28,11 @@ export default class Key {
     if (this.color) {
       newKey.classList.add(`key_color-${this.color}`);
     }
-    if (this.showShift) {
+    if (currentLang.language === 'EN' && this.shiftOn) {
       newKey.setAttribute('data-content', this.shiftOn);
+    }
+    if (currentLang.language === 'RU' && this.shiftOnRU) {
+      newKey.setAttribute('data-content', this.shiftOnRU);
     }
     if (currentLang.language === 'RU' && this.valueRU) {
       newKey.textContent = this.valueRU;

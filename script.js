@@ -129,7 +129,7 @@ function handleCapsLock() {
   if (capsLockIsOn) {
     capsLockIsOn = false;
     capsLockKey.classList.remove('key_pressed');
-    keysToLowerCase();
+    drawKeys(startValues);
   } else {
     capsLockIsOn = true;
     capsLockKey.classList.add('key_pressed');
@@ -139,16 +139,8 @@ function handleCapsLock() {
 
 function keysToUpperCase() {
   const letterKeys = Array.from(document.querySelectorAll('.key')).filter(el => el.textContent.length === 1);
-  const capsKey = 'capsOn';
   letterKeys.forEach(el => {
       el.innerText = el.innerText.toUpperCase();
-  })
-}
-
-function keysToLowerCase() {
-  const letterKeys = Array.from(document.querySelectorAll('.key')).filter(el => el.textContent.length === 1);
-  letterKeys.forEach(el => {
-    el.innerText = el.innerText.toLowerCase();
   })
 }
 
@@ -159,4 +151,42 @@ function changeKeyboardLang() {
   document.querySelector('#lang').innerText = currentLang.language;
   drawKeys(startValues);
 }
+
+//handle Shift
+let shiftIsOn = false;
+keyboard.addEventListener('mousedown', (event) => {
+  if (event.target.innerText === 'shift') {
+    shiftIsOn = true;
+    handleShift();
+  }
+})
+
+document.addEventListener('mouseup', (event) => {
+  if (shiftIsOn) {
+    shiftIsOn = false;
+    handleShift();
+  }
+})
+
+function handleShift() {
+  const shiftKey = Array.from(document.querySelectorAll('.key')).find(el => el.textContent === 'shift');
+  if (shiftIsOn) {
+    shiftKey.classList.add('key_pressed');
+    keysToUpperCase();
+    showShiftValues()
+  } else {
+    shiftKey.classList.remove('key_pressed');
+    drawKeys(startValues);
+  }
+}
+
+function showShiftValues() {
+  const altKeys = Array.from(document.querySelectorAll('.key')).filter(el => el.dataset.content);
+    altKeys.forEach(el => {
+      el.textContent = el.dataset.content;
+      el.removeAttribute('data-content');
+    })
+}
+
+
 
