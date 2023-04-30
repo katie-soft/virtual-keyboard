@@ -28,7 +28,7 @@ const textContent = {
 };
 
 const keys = {
-  tilda: {
+  '`': {
     position: 0,
     value: '`',
     valueRU: 'ё',
@@ -117,7 +117,7 @@ const keys = {
     row: 1,
     size: 's',
   },
-  minus: {
+  '-': {
     position: 11,
     value: '-',
     shiftOn: '_',
@@ -125,7 +125,7 @@ const keys = {
     row: 1,
     size: 's',
   },
-  equals: {
+  '=': {
     position: 12,
     value: '=',
     shiftOn: '+',
@@ -235,7 +235,7 @@ const keys = {
     row: 2,
     size: 's',
   },
-  brace_open: {
+  '[': {
     position: 11,
     value: '[',
     shiftOn: '{',
@@ -244,7 +244,7 @@ const keys = {
     row: 2,
     size: 's',
   },
-  brace_close: {
+  ']': {
     position: 12,
     value: ']',
     shiftOn: '}',
@@ -261,7 +261,7 @@ const keys = {
     row: 2,
     size: 's',
   },
-  del: {
+  delete: {
     position: 14,
     value: 'del',
     row: 2,
@@ -354,7 +354,7 @@ const keys = {
     row: 3,
     size: 's',
   },
-  semicolon: {
+  ':': {
     position: 10,
     value: ';',
     shiftOn: ':',
@@ -363,7 +363,7 @@ const keys = {
     row: 3,
     size: 's',
   },
-  apostrophe: {
+  "'": {
     position: 11,
     value: "'",
     shiftOn: '"',
@@ -378,7 +378,7 @@ const keys = {
     row: 3,
     size: 'l',
   },
-  shift_left: {
+  shift: {
     position: 0,
     value: 'shift',
     row: 4,
@@ -447,7 +447,7 @@ const keys = {
     row: 4,
     size: 's',
   },
-  comma: {
+  ',': {
     position: 8,
     value: ',',
     shiftOn: '<',
@@ -456,7 +456,7 @@ const keys = {
     row: 4,
     size: 's',
   },
-  fullstop: {
+  '.': {
     position: 9,
     value: '.',
     shiftOn: '>',
@@ -465,7 +465,7 @@ const keys = {
     row: 4,
     size: 's',
   },
-  question: {
+  '/': {
     position: 10,
     value: '/',
     shiftOn: '?',
@@ -474,7 +474,7 @@ const keys = {
     row: 4,
     size: 's',
   },
-  arrow_up: {
+  arrowup: {
     position: 11,
     value: '▲',
     row: 4,
@@ -487,13 +487,13 @@ const keys = {
     row: 4,
     size: 'l',
   },
-  ctrl_left: {
+  control: {
     position: 0,
     value: 'ctrl',
     row: 5,
     size: 's',
   },
-  alt_left: {
+  alt: {
     position: 2,
     value: 'alt',
     row: 5,
@@ -506,33 +506,27 @@ const keys = {
     size: 's',
     color: 'light'
   },
-  space: {
+  ' ': {
     position: 3,
     value: '',
     row: 5,
     size: 'xl',
   },
-  alt_right: {
-    position: 4,
-    value: 'alt',
-    row: 5,
-    size: 's',
-  },
-  arrow_left: {
+  arrowleft: {
     position: 5,
     value: '◀',
     row: 5,
     size: 's',
     color: 'light'
   },
-  arrow_down: {
+  arrowdown: {
     position: 6,
     value: '▼',
     row: 5,
     size: 's',
     color: 'light'
   },
-  arrow_right: {
+  arrowright: {
     position: 7,
     value: '▶',
     row: 5,

@@ -23,6 +23,7 @@
     border-radius: 5px;
     font-size: 18px;
     padding: 10px;
+    caret-color: transparent;
 }
 
 .input:focus {
@@ -79,7 +80,7 @@
 }
 
 .key_size-xl {
-    width: 380px;
+    width: 435px;
 }
 
 .key_color-light {

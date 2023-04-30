@@ -1,10 +1,11 @@
 import { pageElements, textContent, keys, currentLang } from '../constants.js';
-import Language from './components/Lanuage.js';
 import Layout from './components/Layout.js'; 
 import Key from './components/Key.js';
 
 //settings
 let capsLockIsOn = false;
+let shiftIsOn = false;
+let currentCursor = 0;
 
 // create basic page layout
 for (let element of pageElements) {
@@ -26,9 +27,9 @@ function sortByPosition(arr) {
 }
 
 let startValues = Object.values(keys);
-sortByPosition(startValues);
 
 function drawKeys(arr) {
+  sortByPosition(arr);
   keyboardRows.forEach(el => el.innerHTML = '');
   for (let i = 0; i < arr.length; i++) {
     const key = new Key(arr[[i]]);
@@ -38,60 +39,93 @@ function drawKeys(arr) {
 
 drawKeys(startValues);
 
-//create keys effects
-keyboard.addEventListener('click', (event) => {
-  if (event.target.classList.contains('key')) {
-    showKeyAnimation(event.target);
-    if (event.target.innerText.length === 1) {
-      virtualType(event.target.innerText);
-    } else {
-      switch (event.target.innerText) {
-        case '':
-          virtualType(' ');
-          break;
-        case 'tab':
-          virtualType(' ');
-          virtualType(' ');
-          virtualType(' ');
-          virtualType(' ');
-          break;
-        case 'enter':
-          virtualType('\n');
-          break;
-        case 'del':
-          virtualDel();
-          break;
-        case 'backspace':
-          virtualBackspace();
-          break;
-        case 'capslock':
-          handleCapsLock();
-          break;
-        case currentLang.language:
-          changeKeyboardLang();
-      }
-    }
-  }
+//track cursor
+textarea.addEventListener('click', () => {
+  currentCursor = textarea.selectionStart;
+})
+
+//handle keys
+keyboard.addEventListener('click', (event) => handleKey(event.target.textContent.toLowerCase()));
+document.addEventListener('keydown', (event) => {
+  event.preventDefault();
+  handleKey(event.key.toLowerCase());
 });
 
-function showKeyAnimation(element) {
-  element.classList.add('key-press-animation');
+function handleKey(value) {
+  let targetKey = '';
+  let targetValue = '';
+  if (shiftIsOn) {
+    targetValue = value.toLowerCase();
+  } else if (value === 'en' || value === 'ru') {
+    targetValue = keys['lang'].value.toLowerCase();
+  } else {
+    //targetValue = keys[value].value;
+    targetValue = value;
+  }
+  targetKey = Array.from(keyboard.querySelectorAll('.key')).find(el => el.textContent.toLowerCase() === targetValue);
+  if (targetKey && value !== 'shift') {
+    showKeyAnimation(targetKey);
+  } 
+  if (value.length === 1) {
+    virtualType(value);
+  } else {
+    handleSpecialKeys(value);
+  }
+}
+
+function showKeyAnimation(key) {
+  key.classList.add('key-press-animation');
   setTimeout(() => {
-    element.classList.remove('key-press-animation')}, 300);
+    key.classList.remove('key-press-animation')}, 300);
 }
 
-function showKey(event) {
-    const virtualButton = Array.from(document.querySelectorAll('.key')).find(el => el.textContent === event.key.toLowerCase());
-    showKeyAnimation(virtualButton);
-}
-document.addEventListener('keydown', showKey);
-
-function virtualType(element) {
+function virtualType(value) {
+  let currentValue = value;
+  if (capsLockIsOn || shiftIsOn) {
+    currentValue = value.toUpperCase();
+    if (shiftIsOn && !event.shiftKey && keys[value].shiftOn) {
+      currentValue = keys[value].shiftOn;
+    }
+  }
   let inputArr = textarea.value.split('');
-  inputArr.splice(currentCursor, 0, element);
+  inputArr.splice(currentCursor, 0, currentValue);
   textarea.value = inputArr.join('');
-  //textarea.focus();
   currentCursor = currentCursor + 1;
+}
+
+function handleSpecialKeys(value) {
+  switch (value) {
+    case '':
+      virtualType(' ');
+      break;
+    case 'tab':
+      virtualType(' ');
+      virtualType(' ');
+      virtualType(' ');
+      virtualType(' ');
+      break;
+    case 'enter':
+      virtualType('\n');
+      break;
+    case 'arrowup':
+    case 'arrowdown':
+    case 'arrowleft':
+    case 'arrowright':
+      virtualType(keys[value].value);
+      break;
+    case 'delete':
+      virtualDel();
+      break;
+    case 'backspace':
+      virtualBackspace();
+      break;
+    case 'capslock':
+      handleCapsLock();
+      break;
+    case currentLang.language.toLowerCase():
+      changeKeyboardLang();
+      break;
+  }
 }
 
 function virtualDel() {
@@ -106,23 +140,6 @@ function virtualBackspace() {
   textarea.value = inputArr.join('');
   currentCursor = currentCursor - 1;
 }
-
-//track cursor on input
-let currentCursor = 0;
-textarea.addEventListener('keyup', () => {
-  currentCursor = textarea.selectionStart;
-})
-
-textarea.addEventListener('click', () => {
-  currentCursor = textarea.selectionStart;
-})
-
-//CapsLock
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'CapsLock') {
-    handleCapsLock();
-  }
-})
 
 function handleCapsLock() {
   const capsLockKey = Array.from(document.querySelectorAll('.key')).find(el => el.textContent === 'capslock');
@@ -144,16 +161,7 @@ function keysToUpperCase() {
   })
 }
 
-//change language
-function changeKeyboardLang() {
-  currentLang.change();
-  keys.lang.value = currentLang.language;
-  document.querySelector('#lang').innerText = currentLang.language;
-  drawKeys(startValues);
-}
-
 //handle Shift
-let shiftIsOn = false;
 keyboard.addEventListener('mousedown', (event) => {
   if (event.target.innerText === 'shift') {
     shiftIsOn = true;
@@ -161,8 +169,22 @@ keyboard.addEventListener('mousedown', (event) => {
   }
 })
 
-document.addEventListener('mouseup', (event) => {
+document.addEventListener('mouseup', () => {
   if (shiftIsOn) {
+    shiftIsOn = false;
+    handleShift();
+  }
+})
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Shift' && !shiftIsOn) {
+    shiftIsOn = true;
+    handleShift();
+  }
+})
+
+document.addEventListener('keyup', (event) => {
+  if (event.key === 'Shift' && shiftIsOn) {
     shiftIsOn = false;
     handleShift();
   }
@@ -173,7 +195,7 @@ function handleShift() {
   if (shiftIsOn) {
     shiftKey.classList.add('key_pressed');
     keysToUpperCase();
-    showShiftValues()
+    showShiftValues();
   } else {
     shiftKey.classList.remove('key_pressed');
     drawKeys(startValues);
@@ -188,5 +210,10 @@ function showShiftValues() {
     })
 }
 
-
-
+//change language
+function changeKeyboardLang() {
+  currentLang.change();
+  keys.lang.value = currentLang.language;
+  document.querySelector('#lang').innerText = currentLang.language;
+  drawKeys(startValues);
+}
