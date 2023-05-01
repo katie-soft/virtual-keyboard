@@ -1,4 +1,4 @@
-import { pageElements, textContent, keys, currentLang } from '../constants.js';
+import { pageElements, textContent, keys, currentLang } from './constants.js';
 import Layout from './components/Layout.js'; 
 import Key from './components/Key.js';
 
