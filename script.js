@@ -54,20 +54,49 @@ document.addEventListener('keydown', (event) => {
 function handleKey(value) {
   let targetKey = '';
   let targetValue = '';
+  let keyObj = {};
+
   if (shiftIsOn) {
-    targetValue = value.toLowerCase();
+    if (currentLang.language === 'EN') {
+      if (parseInt(value) >= 0) {
+        keyObj = Object.values(keys).find(el => el.value === value);
+        targetValue = keyObj.shiftOn;
+      } else if (!keys[value]) {
+        keyObj = Object.values(keys).find(el => el.shiftOn === value);
+        targetValue = keyObj.shiftOn;
+      } else {
+        targetValue = value;
+      }
+    } else {
+      if (parseInt(value) >= 0) {
+        keyObj = Object.values(keys).find(el => el.value === value);
+        targetValue = keyObj.shiftOnRU;
+      } else if (keyObj = Object.values(keys).find(el => el.shiftOnRU === value)) {
+        keyObj = Object.values(keys).find(el => el.shiftOnRU === value);
+        targetValue = keyObj.shiftOnRU;
+      } else {
+        keyObj = Object.values(keys).find(el => el.valueRU === value);
+        targetValue = keyObj.valueRU;
+      }
+    }
+
   } else if (value === 'en' || value === 'ru') {
     targetValue = keys['lang'].value.toLowerCase();
   } else {
-    //targetValue = keys[value].value;
-    targetValue = value;
+    if (keys[value]) {
+      targetValue = keys[value].value;
+    } else {
+      targetValue = value;
+    }
   }
+
   targetKey = Array.from(keyboard.querySelectorAll('.key')).find(el => el.textContent.toLowerCase() === targetValue);
   if (targetKey && value !== 'shift') {
     showKeyAnimation(targetKey);
   } 
+
   if (value.length === 1) {
-    virtualType(value);
+    virtualType(value, keyObj);
   } else {
     handleSpecialKeys(value);
   }
@@ -79,12 +108,19 @@ function showKeyAnimation(key) {
     key.classList.remove('key-press-animation')}, 300);
 }
 
-function virtualType(value) {
+function virtualType(value, keyObj = {}) {
+  if (!Object.keys(keyObj).length) {
+    keyObj = keys[value];
+  }
   let currentValue = value;
+
   if (capsLockIsOn || shiftIsOn) {
     currentValue = value.toUpperCase();
-    if (shiftIsOn && !event.shiftKey && keys[value].shiftOn) {
-      currentValue = keys[value].shiftOn;
+    if (shiftIsOn && !event.shiftKey && keyObj.shiftOnRU && currentLang.language === 'RU') {
+      currentValue = keyObj.shiftOnRU;
+    }
+    if (shiftIsOn && !event.shiftKey && keyObj.shiftOn && currentLang.language === 'EN') {
+      currentValue = keyObj.shiftOn;
     }
   }
   let inputArr = textarea.value.split('');
@@ -138,7 +174,7 @@ function virtualBackspace() {
   let inputArr = textarea.value.split('');
   inputArr.splice(currentCursor - 1, 1, '');
   textarea.value = inputArr.join('');
-  currentCursor = currentCursor - 1;
+  currentCursor = currentCursor > 0 ? currentCursor - 1 : currentCursor;
 }
 
 function handleCapsLock() {

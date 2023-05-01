@@ -40,6 +40,7 @@ const keys = {
   1: {
     position: 1,
     value: '1',
+    valueRU: '1',
     shiftOn: '!',
     shiftOnRU: '!',
     row: 1,
@@ -48,6 +49,7 @@ const keys = {
   2: {
     position: 2,
     value: '2',
+    valueRU: '2',
     shiftOn: '@',
     shiftOnRU: '"',
     row: 1,
@@ -56,6 +58,7 @@ const keys = {
   3: {
     position: 3,
     value: '3',
+    valueRU: '3',
     shiftOn: '#',
     shiftOnRU: '№',
     row: 1,
@@ -64,6 +67,7 @@ const keys = {
   4: {
     position: 4,
     value: '4',
+    valueRU: '4',
     shiftOn: '$',
     shiftOnRU: ';',
     row: 1,
@@ -72,6 +76,7 @@ const keys = {
   5: {
     position: 5,
     value: '5',
+    valueRU: '5',
     shiftOn: '%',
     shiftOnRU: '%',
     row: 1,
@@ -80,6 +85,7 @@ const keys = {
   6: {
     position: 6,
     value: '6',
+    valueRU: '6',
     shiftOn: '^',
     shiftOnRU: ':',
     row: 1,
@@ -88,6 +94,7 @@ const keys = {
   7: {
     position: 7,
     value: '7',
+    valueRU: '7',
     shiftOn: '&',
     shiftOnRU: '?',
     row: 1,
@@ -96,6 +103,7 @@ const keys = {
   8: {
     position: 8,
     value: '8',
+    valueRU: '8',
     shiftOn: '*',
     shiftOnRU: '*',
     row: 1,
@@ -104,6 +112,7 @@ const keys = {
   9: {
     position: 9,
     value: '9',
+    valueRU: '9',
     shiftOn: '(',
     shiftOnRU: '(',
     row: 1,
@@ -112,6 +121,7 @@ const keys = {
   0: {
     position: 10,
     value: '0',
+    valueRU: '0',
     shiftOn: ')',
     shiftOnRU: ')',
     row: 1,
@@ -120,6 +130,7 @@ const keys = {
   '-': {
     position: 11,
     value: '-',
+    valueRU: '-',
     shiftOn: '_',
     shiftOnRU: '_',
     row: 1,
@@ -128,6 +139,7 @@ const keys = {
   '=': {
     position: 12,
     value: '=',
+    valueRU: '=',
     shiftOn: '+',
     shiftOnRU: '+',
     row: 1,
@@ -167,7 +179,7 @@ const keys = {
     position: 3,
     value: 'e',
     capsOn: 'E',
-        valueRU: 'у',
+    valueRU: 'у',
     capsOnRU: 'У',
     row: 2,
     size: 's',

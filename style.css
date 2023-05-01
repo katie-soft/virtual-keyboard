@@ -23,7 +23,7 @@
     border-radius: 5px;
     font-size: 18px;
     padding: 10px;
-    caret-color: transparent;
+    caret-color: palevioletred;
 }
 
 .input:focus {
@@ -68,7 +68,8 @@
 }
 
 .key:hover {
-    background-color: darksalmon;
+    background-color:hotpink;
+    color: #000;
 }
 
 .key_size-l {
