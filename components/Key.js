@@ -1,4 +1,4 @@
-import { currentLang } from '../constants.js'
+import { currentLang } from '../constants.js';
 
 export default class Key {
   constructor({
@@ -24,7 +24,7 @@ export default class Key {
     newKey.className = 'key';
     if (this.size !== 's') {
       newKey.classList.add(`key_size-${this.size}`);
-    };
+    }
     if (this.color) {
       newKey.classList.add(`key_color-${this.color}`);
     }

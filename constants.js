@@ -18,6 +18,7 @@ const pageElements = [
   {tag: 'span', className: 'comments__text', id: "text-1", parent: '#text'},
   {tag: 'span', className: 'comments__text', id: "lang", parent: '#text'},
   {tag: 'span', className: 'comments__text', id: "text-2", parent: '#comments'},
+  {tag: 'span', className: 'comments__text', id: "text-3", parent: '#comments'},
 ]
 
 const textContent = {
@@ -25,6 +26,7 @@ const textContent = {
   '#text-1': 'Current language: ',
   '#lang': `${currentLang.language}`,
   '#text-2': 'To switch between EN <-> RU press left bottom button',
+  '#text-3': 'Before checking the functionality please make sure that your current language and CapsLock status matches the virtual keyboard',
 };
 
 const keys = {

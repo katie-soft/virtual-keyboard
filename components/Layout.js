@@ -1,5 +1,10 @@
 export default class Layout {
-  constructor({tag, className, id, parent}) {
+  constructor({
+    tag,
+    className,
+    id,
+    parent,
+  }) {
     this.tag = tag;
     this.className = className;
     this.id = id;
@@ -7,7 +12,7 @@ export default class Layout {
   }
 
   createElement() {
-    const newElement = document.createElement( `${this.tag}`);
+    const newElement = document.createElement(`${this.tag}`);
     newElement.className = this.className;
     newElement.id = this.id;
     return newElement;

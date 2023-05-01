@@ -23,7 +23,7 @@
     border-radius: 5px;
     font-size: 18px;
     padding: 10px;
-    caret-color: palevioletred;
+    caret-color: rgb(40, 21, 40);
 }
 
 .input:focus {
@@ -68,7 +68,7 @@
 }
 
 .key:hover {
-    background-color:hotpink;
+    background-color: rgba(86, 24, 143, 0.434);
     color: #000;
 }
 
